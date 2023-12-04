@@ -8,12 +8,12 @@ package TokoAlatTulis;
  *
  * @author Arnella
  */
-public class InputBarang extends javax.swing.JFrame {
+public class Member extends javax.swing.JFrame {
 
     /**
-     * Creates new form InputBarang
+     * Creates new form Member
      */
-    public InputBarang() {
+    public Member() {
         initComponents();
     }
 
@@ -34,56 +34,55 @@ public class InputBarang extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         tambah = new javax.swing.JButton();
-        teksNamaBarang = new javax.swing.JTextField();
+        teksNama = new javax.swing.JTextField();
         simpan = new javax.swing.JButton();
         hapus = new javax.swing.JButton();
         perbarui = new javax.swing.JButton();
-        teksHargaBarang = new javax.swing.JTextField();
-        teksStokBarang = new javax.swing.JTextField();
+        teksNoHp = new javax.swing.JTextField();
+        teksAlamat = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        teksCariBarang = new javax.swing.JTextField();
+        teksCariMember = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelBarang = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         kembali = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 102));
         jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel2.setText("TAMBAH BARANG");
+        jLabel2.setText("INPUT MEMBER");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 153));
 
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel1.setText("INPUT BARANG");
+        jLabel1.setText("INPUT MEMBER");
 
         jLabel3.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel3.setText("Nama barang :");
+        jLabel3.setText("Nama         :");
 
         jLabel4.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel4.setText("Stok                :");
+        jLabel4.setText("Alamat       :");
 
         jLabel5.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel5.setText("Harga barang :");
+        jLabel5.setText("Nomor HP :");
 
         tambah.setBackground(new java.awt.Color(255, 102, 0));
         tambah.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
         tambah.setForeground(new java.awt.Color(255, 255, 153));
         tambah.setText("Tambah");
 
-        teksNamaBarang.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksNamaBarang.setForeground(new java.awt.Color(153, 0, 0));
-        teksNamaBarang.addActionListener(new java.awt.event.ActionListener() {
+        teksNama.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
+        teksNama.setForeground(new java.awt.Color(255, 255, 255));
+        teksNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teksNamaBarangActionPerformed(evt);
+                teksNamaActionPerformed(evt);
             }
         });
 
@@ -102,19 +101,19 @@ public class InputBarang extends javax.swing.JFrame {
         perbarui.setForeground(new java.awt.Color(255, 255, 153));
         perbarui.setText("Perbarui");
 
-        teksHargaBarang.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksHargaBarang.setForeground(new java.awt.Color(153, 0, 0));
-        teksHargaBarang.addActionListener(new java.awt.event.ActionListener() {
+        teksNoHp.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
+        teksNoHp.setForeground(new java.awt.Color(255, 255, 255));
+        teksNoHp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teksHargaBarangActionPerformed(evt);
+                teksNoHpActionPerformed(evt);
             }
         });
 
-        teksStokBarang.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksStokBarang.setForeground(new java.awt.Color(153, 0, 0));
-        teksStokBarang.addActionListener(new java.awt.event.ActionListener() {
+        teksAlamat.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
+        teksAlamat.setForeground(new java.awt.Color(255, 255, 255));
+        teksAlamat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teksStokBarangActionPerformed(evt);
+                teksAlamatActionPerformed(evt);
             }
         });
 
@@ -124,33 +123,31 @@ public class InputBarang extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(33, 33, 33))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(62, 62, 62)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(39, 39, 39)
-                                    .addComponent(jLabel3))))
-                        .addGap(28, 28, 28)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 74, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(perbarui, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(48, 48, 48))
-                    .addComponent(teksHargaBarang, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(teksNamaBarang, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(teksStokBarang))
-                .addGap(29, 29, 29))
+                        .addGap(62, 62, 62))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(teksAlamat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                            .addComponent(teksNoHp, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(teksNama, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jLabel1)
@@ -161,23 +158,23 @@ public class InputBarang extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(27, 27, 27)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(teksNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(teksHargaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(teksNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(teksNoHp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(teksAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(teksStokBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(perbarui)
-                    .addComponent(tambah))
-                .addGap(18, 18, 18)
+                    .addComponent(tambah)
+                    .addComponent(perbarui))
+                .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hapus)
                     .addComponent(simpan))
@@ -186,18 +183,18 @@ public class InputBarang extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel7.setText("Cari barang  :");
+        jLabel7.setText("Cari member :");
 
-        teksCariBarang.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksCariBarang.setForeground(new java.awt.Color(153, 0, 0));
-        teksCariBarang.addActionListener(new java.awt.event.ActionListener() {
+        teksCariMember.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
+        teksCariMember.setForeground(new java.awt.Color(255, 255, 255));
+        teksCariMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teksCariBarangActionPerformed(evt);
+                teksCariMemberActionPerformed(evt);
             }
         });
 
-        tabelBarang.setBackground(new java.awt.Color(255, 255, 153));
-        tabelBarang.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setBackground(new java.awt.Color(255, 255, 153));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -241,10 +238,10 @@ public class InputBarang extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Kode Barang", "Nama Barang", "Harga Barang", "Stok Barang"
+                "ID ", "Nama ", "Nomor HP", "Alamat"
             }
         ));
-        jScrollPane1.setViewportView(tabelBarang);
+        jScrollPane1.setViewportView(jTable1);
 
         kembali.setBackground(new java.awt.Color(255, 102, 0));
         kembali.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
@@ -260,28 +257,28 @@ public class InputBarang extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(531, 531, 531)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(teksCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(teksCariMember, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addGap(88, 88, 88)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(73, 73, 73))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(531, 531, 531)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,15 +288,14 @@ public class InputBarang extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(teksCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(teksCariMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -320,21 +316,21 @@ public class InputBarang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void teksNamaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teksNamaBarangActionPerformed
+    private void teksNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teksNamaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_teksNamaBarangActionPerformed
+    }//GEN-LAST:event_teksNamaActionPerformed
 
-    private void teksHargaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teksHargaBarangActionPerformed
+    private void teksNoHpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teksNoHpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_teksHargaBarangActionPerformed
+    }//GEN-LAST:event_teksNoHpActionPerformed
 
-    private void teksStokBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teksStokBarangActionPerformed
+    private void teksAlamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teksAlamatActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_teksStokBarangActionPerformed
+    }//GEN-LAST:event_teksAlamatActionPerformed
 
-    private void teksCariBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teksCariBarangActionPerformed
+    private void teksCariMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teksCariMemberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_teksCariBarangActionPerformed
+    }//GEN-LAST:event_teksCariMemberActionPerformed
 
     private void kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kembaliActionPerformed
         // TODO add your handling code here:
@@ -357,20 +353,20 @@ public class InputBarang extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InputBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Member.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InputBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Member.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InputBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Member.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InputBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Member.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InputBarang().setVisible(true);
+                new Member().setVisible(true);
             }
         });
     }
@@ -386,14 +382,14 @@ public class InputBarang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton kembali;
     private javax.swing.JButton perbarui;
     private javax.swing.JButton simpan;
-    private javax.swing.JTable tabelBarang;
     private javax.swing.JButton tambah;
-    private javax.swing.JTextField teksCariBarang;
-    private javax.swing.JTextField teksHargaBarang;
-    private javax.swing.JTextField teksNamaBarang;
-    private javax.swing.JTextField teksStokBarang;
+    private javax.swing.JTextField teksAlamat;
+    private javax.swing.JTextField teksCariMember;
+    private javax.swing.JTextField teksNama;
+    private javax.swing.JTextField teksNoHp;
     // End of variables declaration//GEN-END:variables
 }
