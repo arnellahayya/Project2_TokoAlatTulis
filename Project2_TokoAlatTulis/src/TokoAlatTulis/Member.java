@@ -237,7 +237,7 @@ public class Member extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Kode Barang", "Nama Barang", "Harga Barang", "Stok Barang"
+                "ID ", "Nama ", "Nomor HP", "Alamat"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
