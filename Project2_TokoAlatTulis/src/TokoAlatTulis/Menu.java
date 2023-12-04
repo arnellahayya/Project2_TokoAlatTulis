@@ -26,21 +26,132 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        transaksi = new javax.swing.JButton();
+        inputBarang = new javax.swing.JButton();
+        member = new javax.swing.JButton();
+        laporanTransaksi = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
+
+        jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 50)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel2.setText("MAIN MENU");
+
+        transaksi.setBackground(new java.awt.Color(255, 102, 0));
+        transaksi.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
+        transaksi.setForeground(new java.awt.Color(255, 255, 153));
+        transaksi.setText("TRANSAKSI");
+        transaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transaksiActionPerformed(evt);
+            }
+        });
+
+        inputBarang.setBackground(new java.awt.Color(255, 102, 0));
+        inputBarang.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
+        inputBarang.setForeground(new java.awt.Color(255, 255, 153));
+        inputBarang.setText("INPUT BARANG");
+        inputBarang.setAlignmentY(0.0F);
+        inputBarang.setIconTextGap(0);
+        inputBarang.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        inputBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputBarangActionPerformed(evt);
+            }
+        });
+
+        member.setBackground(new java.awt.Color(255, 102, 0));
+        member.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
+        member.setForeground(new java.awt.Color(255, 255, 153));
+        member.setText("MEMBER");
+        member.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                memberActionPerformed(evt);
+            }
+        });
+
+        laporanTransaksi.setBackground(new java.awt.Color(255, 102, 0));
+        laporanTransaksi.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
+        laporanTransaksi.setForeground(new java.awt.Color(255, 255, 153));
+        laporanTransaksi.setText("LAPORAN TRANSAKSI");
+        laporanTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                laporanTransaksiActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(483, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(533, 533, 533))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(laporanTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(member, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(471, 471, 471))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jLabel2)
+                .addGap(76, 76, 76)
+                .addComponent(inputBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(member, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(laporanTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(140, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1366, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transaksiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_transaksiActionPerformed
+
+    private void inputBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputBarangActionPerformed
+
+    private void memberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_memberActionPerformed
+
+    private void laporanTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laporanTransaksiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_laporanTransaksiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +189,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton inputBarang;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton laporanTransaksi;
+    private javax.swing.JButton member;
+    private javax.swing.JButton transaksi;
     // End of variables declaration//GEN-END:variables
 }
