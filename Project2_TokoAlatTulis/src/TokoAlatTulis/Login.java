@@ -4,6 +4,9 @@
  */
 package TokoAlatTulis;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Arnella
@@ -15,6 +18,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -27,25 +31,71 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        slmt = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        userTxt = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        passwordTxt = new javax.swing.JPasswordField();
+        login1 = new javax.swing.JLabel();
+        login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 204, 102));
         jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
         jPanel1.setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 50)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel2.setText("MAIN MENU");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(580, 180, 283, 61);
+        slmt.setFont(new java.awt.Font("Bahnschrift", 1, 55)); // NOI18N
+        slmt.setForeground(new java.awt.Color(153, 0, 0));
+        slmt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slmt.setText("SELAMAT DATANG DI TOKO NEO");
+        jPanel1.add(slmt);
+        slmt.setBounds(240, 150, 870, 67);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TokoAlatTulis/background.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setToolTipText("");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1380, 810);
+        jLabel3.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel3.setText("Password");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(460, 450, 180, 50);
+
+        userTxt.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
+        userTxt.setForeground(new java.awt.Color(0, 0, 0));
+        userTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userTxtActionPerformed(evt);
+            }
+        });
+        jPanel1.add(userTxt);
+        userTxt.setBounds(690, 380, 250, 40);
+
+        jLabel4.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel4.setText("Username");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(460, 380, 180, 50);
+
+        passwordTxt.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        jPanel1.add(passwordTxt);
+        passwordTxt.setBounds(690, 450, 250, 40);
+
+        login1.setFont(new java.awt.Font("Bahnschrift", 1, 50)); // NOI18N
+        login1.setForeground(new java.awt.Color(153, 0, 0));
+        login1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        login1.setText("LOGIN");
+        jPanel1.add(login1);
+        login1.setBounds(600, 260, 150, 61);
+
+        login.setBackground(new java.awt.Color(255, 102, 0));
+        login.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        login.setForeground(new java.awt.Color(255, 255, 153));
+        login.setText("LOGIN");
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+        jPanel1.add(login);
+        login.setBounds(590, 540, 170, 60);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,6 +114,26 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void userTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTxtActionPerformed
+    private static final String DEFAULT_USERNAME = "admin";
+    private static final String DEFAULT_PASSWORD = "admin";
+    
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+      String userName = "admin";
+        String password = "admin";
+        
+        if(userTxt.getText().equals(userName)&& passwordTxt.getText().equals(password)){
+            Menu mainMenu = new Menu();
+            mainMenu.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Username / Password Salah!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        }
+   
+    }//GEN-LAST:event_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,8 +171,13 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton login;
+    private javax.swing.JLabel login1;
+    private javax.swing.JPasswordField passwordTxt;
+    private javax.swing.JLabel slmt;
+    private javax.swing.JTextField userTxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,6 +15,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -31,7 +32,8 @@ public class Menu extends javax.swing.JFrame {
         transaksi = new javax.swing.JButton();
         inputBarang = new javax.swing.JButton();
         member = new javax.swing.JButton();
-        laporanTransaksi = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
+        laporanTransaksi1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,13 +77,23 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        laporanTransaksi.setBackground(new java.awt.Color(255, 102, 0));
-        laporanTransaksi.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
-        laporanTransaksi.setForeground(new java.awt.Color(255, 255, 153));
-        laporanTransaksi.setText("LAPORAN TRANSAKSI");
-        laporanTransaksi.addActionListener(new java.awt.event.ActionListener() {
+        logout.setBackground(new java.awt.Color(255, 102, 0));
+        logout.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
+        logout.setForeground(new java.awt.Color(255, 255, 153));
+        logout.setText("LOGOUT");
+        logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                laporanTransaksiActionPerformed(evt);
+                logoutActionPerformed(evt);
+            }
+        });
+
+        laporanTransaksi1.setBackground(new java.awt.Color(255, 102, 0));
+        laporanTransaksi1.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
+        laporanTransaksi1.setForeground(new java.awt.Color(255, 255, 153));
+        laporanTransaksi1.setText("LAPORAN TRANSAKSI");
+        laporanTransaksi1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                laporanTransaksi1ActionPerformed(evt);
             }
         });
 
@@ -90,33 +102,38 @@ public class Menu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(483, Short.MAX_VALUE)
+                .addContainerGap(481, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(533, 533, 533))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(laporanTransaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(laporanTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(member, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(471, 471, 471))))
+                        .addGap(473, 473, 473))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(590, 590, 590))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(jLabel2)
-                .addGap(76, 76, 76)
+                .addGap(33, 33, 33)
                 .addComponent(inputBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(43, 43, 43)
                 .addComponent(member, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(41, 41, 41)
                 .addComponent(transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(laporanTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(laporanTransaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,9 +166,13 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_memberActionPerformed
 
-    private void laporanTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laporanTransaksiActionPerformed
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_laporanTransaksiActionPerformed
+    }//GEN-LAST:event_logoutActionPerformed
+
+    private void laporanTransaksi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laporanTransaksi1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_laporanTransaksi1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,7 +213,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton inputBarang;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton laporanTransaksi;
+    private javax.swing.JButton laporanTransaksi1;
+    private javax.swing.JButton logout;
     private javax.swing.JButton member;
     private javax.swing.JButton transaksi;
     // End of variables declaration//GEN-END:variables

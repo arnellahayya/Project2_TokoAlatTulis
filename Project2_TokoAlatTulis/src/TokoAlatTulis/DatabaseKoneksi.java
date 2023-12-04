@@ -16,7 +16,7 @@ public class DatabaseKoneksi {
         private static Connection connection;
         public static Connection getConnection() throws ClassNotFoundException, SQLException {
             if (connection == null) {
-                String url = "jdbc:mysql://localhost:3306/project2_tokoAlatTulis";
+                String url = "jdbc:mysql://localhost:3306/toko_alat_tulis";
                 String username = "root";
                 String password = "";
                 Class.forName("com.mysql.cj.jdbc.Driver");
