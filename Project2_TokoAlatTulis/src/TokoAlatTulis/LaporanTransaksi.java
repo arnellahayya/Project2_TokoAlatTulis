@@ -15,6 +15,7 @@ public class LaporanTransaksi extends javax.swing.JFrame {
      */
     public LaporanTransaksi() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -156,9 +157,22 @@ public class LaporanTransaksi extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kembaliActionPerformed
-        // TODO add your handling code here:
+        String Menu = "Menu"; 
+        switchToFrame(Menu);
     }//GEN-LAST:event_kembaliActionPerformed
 
+    private void switchToFrame(String frameName) {
+        try {
+            this.dispose(); 
+            if (frameName.equals("Menu")) { 
+                Menu menu = new Menu();
+                menu.setVisible(true);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

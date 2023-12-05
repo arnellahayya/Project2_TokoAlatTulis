@@ -155,25 +155,53 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transaksiActionPerformed
-        // TODO add your handling code here:
+        String Transaksi = "Transaksi"; 
+        switchToFrame(Transaksi);                      
     }//GEN-LAST:event_transaksiActionPerformed
 
     private void inputBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBarangActionPerformed
-        // TODO add your handling code here:
+        String InputBarang = "InputBarang"; 
+        switchToFrame(InputBarang);
     }//GEN-LAST:event_inputBarangActionPerformed
 
     private void memberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memberActionPerformed
-        // TODO add your handling code here:
+        String Member = "Member"; 
+        switchToFrame(Member);
     }//GEN-LAST:event_memberActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-        // TODO add your handling code here:
+        String Login = "Login"; 
+        switchToFrame(Login);
     }//GEN-LAST:event_logoutActionPerformed
 
     private void laporanTransaksi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laporanTransaksi1ActionPerformed
-        // TODO add your handling code here:
+        String LaporanTransaksi = "LaporanTransaksi"; 
+        switchToFrame(LaporanTransaksi);
     }//GEN-LAST:event_laporanTransaksi1ActionPerformed
 
+    private void switchToFrame(String frameName) {
+    try {
+        this.dispose(); 
+        if (frameName.equals("Transaksi")) {
+            Transaksi transaksiFrame = new Transaksi();
+            transaksiFrame.setVisible(true);
+        } else if (frameName.equals("InputBarang")) {
+            InputBarang InputBarangFrame = new InputBarang();
+            InputBarangFrame.setVisible(true);
+        } else if (frameName.equals("Member")) {
+            Member MemberFrame = new Member();
+            MemberFrame.setVisible(true);
+        } else if (frameName.equals("LaporanTransaksi")) {
+            LaporanTransaksi LaporanTransaksiFrame = new LaporanTransaksi();
+            LaporanTransaksiFrame.setVisible(true);
+        } else if (frameName.equals("Login")) {
+            Login LoginFrame = new Login();
+            LoginFrame.setVisible(true);
+        }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+    }
     /**
      * @param args the command line arguments
      */

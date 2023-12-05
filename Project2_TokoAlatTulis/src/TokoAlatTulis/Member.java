@@ -15,6 +15,7 @@ public class Member extends javax.swing.JFrame {
      */
     public Member() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -333,9 +334,22 @@ public class Member extends javax.swing.JFrame {
     }//GEN-LAST:event_teksCariMemberActionPerformed
 
     private void kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kembaliActionPerformed
-        // TODO add your handling code here:
+        String Menu = "Menu"; 
+        switchToFrame(Menu);
     }//GEN-LAST:event_kembaliActionPerformed
 
+    private void switchToFrame(String frameName) {
+        try {
+            this.dispose(); 
+            if (frameName.equals("Menu")) { 
+                Menu menu = new Menu();
+                menu.setVisible(true);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
