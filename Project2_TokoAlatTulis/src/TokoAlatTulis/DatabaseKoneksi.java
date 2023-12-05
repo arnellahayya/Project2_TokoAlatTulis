@@ -5,8 +5,6 @@
 package TokoAlatTulis;
 
 import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 
@@ -25,17 +23,17 @@ public class DatabaseKoneksi {
             return connection;
         }
     
-        public static void closeConnection() {
-            try {
-              
-                if (connection != null && !connection.isClosed()) {
-                    connection.close();
-                    System.out.println("Database connection closed.");  
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
+//        public static void closeConnection() {
+//            try {
+//              
+//                if (connection != null && !connection.isClosed()) {
+//                    connection.close();
+//                    System.out.println("Database connection closed.");  
+//                }
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
         
     }
 }

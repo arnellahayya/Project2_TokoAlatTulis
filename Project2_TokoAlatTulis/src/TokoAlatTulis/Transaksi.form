@@ -440,6 +440,9 @@
                     <Property name="text" type="java.lang.String" value="Cari"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CariMemberActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="member">
                   <Properties>
@@ -514,6 +517,9 @@
                 <Property name="text" type="java.lang.String" value="Cari Barang"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cariBarangActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>

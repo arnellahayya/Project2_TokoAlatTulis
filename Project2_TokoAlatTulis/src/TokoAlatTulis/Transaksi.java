@@ -4,6 +4,16 @@
  */
 package TokoAlatTulis;
 
+import TokoAlatTulis.DatabaseKoneksi.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Arnella
@@ -121,6 +131,11 @@ public class Transaksi extends javax.swing.JFrame {
         CariMember.setForeground(new java.awt.Color(255, 255, 153));
         CariMember.setText("Cari");
         CariMember.setAlignmentY(0.0F);
+        CariMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CariMemberActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(member);
         member.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
@@ -220,6 +235,11 @@ public class Transaksi extends javax.swing.JFrame {
         cariBarang.setForeground(new java.awt.Color(255, 255, 153));
         cariBarang.setText("Cari Barang");
         cariBarang.setAlignmentY(0.0F);
+        cariBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariBarangActionPerformed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
@@ -599,13 +619,102 @@ public class Transaksi extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalActionPerformed
-        // TODO add your handling code here:
+        kodeBarang.setText("");
+        namaBarang.setText("");
+        stok.setText("");
+        hargaSatuan.setText("");
+        jumlahJual.setText("");
+        hargaAkhir.setText("");
     }//GEN-LAST:event_batalActionPerformed
-
+    
+    private double totalHarga = 0;
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
+        try {
+            double hargaSatuanValue = Double.parseDouble(hargaSatuan.getText());
+            int jumlahJualValue = Integer.parseInt(jumlahJual.getText());
+
+            double subTotal = hargaSatuanValue * jumlahJualValue;
+            totalHarga += subTotal;
+
+            hargaAkhir.setText(String.valueOf(totalHarga));
+
+            // Simpan data transaksi ke dalam database
+            saveTransactionToDatabase();
+
+            // Tampilkan tagihan pada text field atau label yang sesuai
+            txtTotal.setText(String.valueOf(totalHarga));
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Masukkan angka yang valid.");
+        }
     }//GEN-LAST:event_submitActionPerformed
 
+    private void saveTransactionToDatabase() {
+         try {
+            java.sql.Connection koneksi = DatabaseConnection.getConnection();
+
+            String query = "INSERT INTO transaksi (kode_barang, nama_barang, stok, harga_satuan, jumlah, total_harga ) VALUES (?, ?, ?, ? ,? ,?)";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+
+            preparedStatement.setString(1, kodeBarang.getText());
+            preparedStatement.setString(2, namaBarang.getText());
+            preparedStatement.setString(3, stok.getText());
+            preparedStatement.setString(4, hargaSatuan.getText());
+            preparedStatement.setString(5, jumlahJual.getText());
+            preparedStatement.setString(6, hargaAkhir.getText());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Data berhasil dimasukkan ke database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                
+                updateTable();
+                 
+                kodeBarang.setText("");
+                namaBarang.setText("");
+                stok.setText("");
+                hargaSatuan.setText("");
+                jumlahJual.setText("");
+                hargaAkhir.setText("");
+
+                preparedStatement.close();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal memasukkan data ke database", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InputBarang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     private void updateTable() {
+        try {
+            Connection koneksi = DatabaseConnection.getConnection();
+            String query = "SELECT * FROM transaksi";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel model = (DefaultTableModel) tabelTransaksi.getModel();
+            model.setRowCount(0); 
+
+            while (resultSet.next()) {
+                Object[] row = {
+                        resultSet.getString("kode_barang"),
+                        resultSet.getString("nama_barang"),
+                        resultSet.getString("stok"),
+                        resultSet.getString("harga_satuan"),
+                        resultSet.getString("jumlah"),
+                        resultSet.getString("total_harga")
+                };
+                model.addRow(row);
+            }
+            preparedStatement.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private void baruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baruActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_baruActionPerformed
@@ -615,7 +724,18 @@ public class Transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_hargaAkhirActionPerformed
 
     private void bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bayarActionPerformed
-        // TODO add your handling code here:
+//        try {
+//            double uangValue = Double.parseDouble(uang.getText());
+//
+//            if (uangValue < totalHarga) {
+//                JOptionPane.showMessageDialog(this, "Uang yang dimasukkan kurang.");
+//            } else {
+//                double kembaliValue = uangValue - totalHarga;
+//                kembali.setText(String.valueOf(kembaliValue));
+//            }
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(this, "Masukkan angka yang valid.");
+//        }
     }//GEN-LAST:event_bayarActionPerformed
 
     private void memberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memberActionPerformed
@@ -635,6 +755,72 @@ public class Transaksi extends javax.swing.JFrame {
         switchToFrame(Menu);
     }//GEN-LAST:event_kembali1ActionPerformed
 
+    private void CariMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CariMemberActionPerformed
+        cariMemberByNomorHP();
+    }//GEN-LAST:event_CariMemberActionPerformed
+
+    private void cariBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariBarangActionPerformed
+         try {
+            Connection koneksi = DatabaseConnection.getConnection();
+
+            String query = "SELECT * FROM barang WHERE kode_barang=?";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+
+            preparedStatement.setString(1, kodeBarang.getText());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                namaBarang.setText(resultSet.getString("nama_barang"));
+                stok.setText(resultSet.getString("stok_barang"));
+                hargaSatuan.setText(resultSet.getString("harga_barang"));
+
+                JOptionPane.showMessageDialog(this, "Data ditemukan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data tidak ditemukan", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            }
+
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cariBarangActionPerformed
+
+    private void cariMemberByNomorHP() {
+       try {
+            Connection koneksi = DatabaseConnection.getConnection();
+
+            String sql = "SELECT nama FROM member WHERE no_hp = ?";
+
+            try (PreparedStatement statement = koneksi.prepareStatement(sql)) {
+                // Menggantilah '?' dengan nilai sesuai dengan data yang ingin dicari
+                statement.setString(1, nomorHP.getText());
+
+                // Eksekusi query
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next()) {
+                    // Jika data ditemukan, tampilkan hasilnya di textfield atau komponen GUI yang sesuai
+                    String namaMember = resultSet.getString("nama");
+                    nama.setText(namaMember);
+                    member.setSelected(true);
+                    // Tambahan: Anda mungkin ingin menampilkan informasi lainnya jika diperlukan
+                } else {
+                    // Jika data tidak ditemukan, kosongkan textfield atau komponen GUI yang sesuai
+                    nama.setText("");
+                    JOptionPane.showMessageDialog(this, "Member tidak ditemukan.");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void switchToFrame(String frameName) {
         try {
             this.dispose(); 

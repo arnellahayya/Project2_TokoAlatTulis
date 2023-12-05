@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.sql.ResultSet;
 
 /**
  *
@@ -30,11 +31,10 @@ public class InputBarang extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         updateTable(); 
         
-         teksCariBarang.addActionListener(new java.awt.event.ActionListener() {
+        teksCariBarang.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            searchBarangByName();
-        }
-    });
+            searchBarangByName(); }
+        });
         
         
     }
@@ -138,6 +138,11 @@ public class InputBarang extends javax.swing.JFrame {
         perbarui.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
         perbarui.setForeground(new java.awt.Color(255, 255, 153));
         perbarui.setText("Perbarui");
+        perbarui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perbaruiActionPerformed(evt);
+            }
+        });
 
         teksHargaBarang.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         teksHargaBarang.setForeground(new java.awt.Color(153, 0, 0));
@@ -381,7 +386,43 @@ public class InputBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_kembaliActionPerformed
 
     private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Menampilkan dialog konfirmasi
+            int result = JOptionPane.showConfirmDialog(this, "Anda yakin ingin menyimpan perubahan?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+            // Jika pengguna menekan tombol 'Yes' (YES_OPTION)
+            if (result == JOptionPane.YES_OPTION) {
+                Connection koneksi = DatabaseConnection.getConnection();
+
+                // Mengasumsikan bahwa nama_barang adalah kolom string, sesuaikan query-nya
+                String query = "UPDATE barang SET stok_barang=?, harga_barang=? WHERE nama_barang=?";
+                PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+
+                preparedStatement.setString(1, teksStokBarang.getText());
+                preparedStatement.setString(2, teksHargaBarang.getText());
+                preparedStatement.setString(3, teksNamaBarang.getText());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(this, "Data berhasil diperbarui di database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+                    updateTable();
+
+                    teksNamaBarang.setText("");
+                    teksStokBarang.setText("");
+                    teksHargaBarang.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Gagal memperbarui data di database", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                preparedStatement.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_simpanActionPerformed
 
     private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
@@ -418,29 +459,58 @@ public class InputBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_tambahActionPerformed
 
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
-       try {
-            int selectedRow = tabelBarang.getSelectedRow();
-            if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(null, "Pilih data yang akan dihapus");
-                return;
+     int selectedRow = tabelBarang.getSelectedRow();
+
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    String barangToDelete = tabelBarang.getValueAt(selectedRow, 0).toString();
+
+                    Connection koneksi = DatabaseConnection.getConnection();
+                    String query = "DELETE FROM barang WHERE kode_barang = ?";
+                    PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+                    preparedStatement.setString(1, barangToDelete);
+                    int rowsAffected = preparedStatement.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus dari database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                        updateTable();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Gagal menghapus data dari database", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    preparedStatement.close();
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
             }
-
-            String namaBarang = tabelBarang.getValueAt(selectedRow, 0).toString();
-
-            String query = "DELETE FROM barang WHERE nama_barang=?";
-
-            try (Connection connection = DatabaseKoneksi.DatabaseConnection.getConnection();
-                 PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setString(1, namaBarang);
-                statement.executeUpdate();
-
-                JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-               
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            }else {
+                JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_hapusActionPerformed
+
+    private void perbaruiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perbaruiActionPerformed
+        int selectedRow = tabelBarang.getSelectedRow();
+
+        if (selectedRow != -1) {
+            try {
+                String namaToUpdate = tabelBarang.getValueAt(selectedRow, 1).toString();
+                String stokToUpdate = tabelBarang.getValueAt(selectedRow, 2).toString();
+                String hargaToUpdate = tabelBarang.getValueAt(selectedRow, 3).toString();
+
+                teksNamaBarang.setText(namaToUpdate);
+                teksStokBarang.setText(stokToUpdate);
+                teksHargaBarang.setText(hargaToUpdate);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin diperbarui", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_perbaruiActionPerformed
 
     private void switchToFrame(String frameName) {
         try {
@@ -496,7 +566,7 @@ public class InputBarang extends javax.swing.JFrame {
 
                         if (resultSet.next()) {
                             // Select the first result
-                            
+                            updateTable();
                             // Populate the fields with the selected data
                             teksNamaBarang.setText(resultSet.getString("nama_barang"));
                             teksStokBarang.setText(resultSet.getString("stok_barang"));

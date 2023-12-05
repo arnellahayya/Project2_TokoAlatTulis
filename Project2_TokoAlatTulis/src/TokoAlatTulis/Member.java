@@ -4,6 +4,18 @@
  */
 package TokoAlatTulis;
 
+//import com.mysql.cj.xdevapi.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+
 /**
  *
  * @author Arnella
@@ -16,6 +28,13 @@ public class Member extends javax.swing.JFrame {
     public Member() {
         initComponents();
         setLocationRelativeTo(this);
+        updateTable();
+        
+        teksCariMember.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            searchBarangByName(); }
+        });
+         
     }
 
     /**
@@ -44,7 +63,7 @@ public class Member extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         teksCariMember = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelMember = new javax.swing.JTable();
         kembali = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,9 +97,14 @@ public class Member extends javax.swing.JFrame {
         tambah.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
         tambah.setForeground(new java.awt.Color(255, 255, 153));
         tambah.setText("Tambah");
+        tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahActionPerformed(evt);
+            }
+        });
 
         teksNama.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksNama.setForeground(new java.awt.Color(255, 255, 255));
+        teksNama.setForeground(new java.awt.Color(0, 0, 0));
         teksNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teksNamaActionPerformed(evt);
@@ -91,19 +115,34 @@ public class Member extends javax.swing.JFrame {
         simpan.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
         simpan.setForeground(new java.awt.Color(255, 255, 153));
         simpan.setText("Simpan");
+        simpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanActionPerformed(evt);
+            }
+        });
 
         hapus.setBackground(new java.awt.Color(255, 102, 0));
         hapus.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
         hapus.setForeground(new java.awt.Color(255, 255, 153));
         hapus.setText("Hapus");
+        hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusActionPerformed(evt);
+            }
+        });
 
         perbarui.setBackground(new java.awt.Color(255, 102, 0));
         perbarui.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
         perbarui.setForeground(new java.awt.Color(255, 255, 153));
         perbarui.setText("Perbarui");
+        perbarui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perbaruiActionPerformed(evt);
+            }
+        });
 
         teksNoHp.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksNoHp.setForeground(new java.awt.Color(255, 255, 255));
+        teksNoHp.setForeground(new java.awt.Color(0, 0, 0));
         teksNoHp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teksNoHpActionPerformed(evt);
@@ -111,7 +150,7 @@ public class Member extends javax.swing.JFrame {
         });
 
         teksAlamat.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksAlamat.setForeground(new java.awt.Color(255, 255, 255));
+        teksAlamat.setForeground(new java.awt.Color(0, 0, 0));
         teksAlamat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teksAlamatActionPerformed(evt);
@@ -187,15 +226,15 @@ public class Member extends javax.swing.JFrame {
         jLabel7.setText("Cari member :");
 
         teksCariMember.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksCariMember.setForeground(new java.awt.Color(255, 255, 255));
+        teksCariMember.setForeground(new java.awt.Color(0, 0, 0));
         teksCariMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teksCariMemberActionPerformed(evt);
             }
         });
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 153));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelMember.setBackground(new java.awt.Color(255, 255, 153));
+        tabelMember.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -242,7 +281,7 @@ public class Member extends javax.swing.JFrame {
                 "ID ", "Nama ", "Nomor HP", "Alamat"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelMember);
 
         kembali.setBackground(new java.awt.Color(255, 102, 0));
         kembali.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
@@ -338,6 +377,133 @@ public class Member extends javax.swing.JFrame {
         switchToFrame(Menu);
     }//GEN-LAST:event_kembaliActionPerformed
 
+    private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
+        try {
+            // Menampilkan dialog konfirmasi
+            int result = JOptionPane.showConfirmDialog(this, "Anda yakin ingin menyimpan perubahan?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+            // Jika pengguna menekan tombol 'Yes' (YES_OPTION)
+            if (result == JOptionPane.YES_OPTION) {
+                Connection koneksi = DatabaseKoneksi.DatabaseConnection.getConnection();
+
+                // Mengasumsikan bahwa nama_barang adalah kolom string, sesuaikan query-nya
+                String query = "UPDATE member SET no_hp=?, alamat=? WHERE nama=?";
+                PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+
+                preparedStatement.setString(1, teksNoHp.getText());
+                preparedStatement.setString(2, teksAlamat.getText());
+                preparedStatement.setString(3, teksNama.getText());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(this, "Data berhasil diperbarui di database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+                    updateTable();
+
+                    teksNoHp.setText("");
+                    teksAlamat.setText("");
+                    teksNama.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Gagal memperbarui data di database", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                preparedStatement.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_simpanActionPerformed
+
+    private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
+        try {
+            Connection koneksi = DatabaseKoneksi.DatabaseConnection.getConnection();
+
+            String query = "INSERT INTO member (nama, no_hp, alamat) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+
+            preparedStatement.setString(1, teksNama.getText());
+            preparedStatement.setString(2, teksNoHp.getText());
+            preparedStatement.setString(3, teksAlamat.getText());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Data berhasil dimasukkan ke database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                
+                updateTable();
+                 
+                teksNama.setText("");
+                teksNoHp.setText("");
+                teksAlamat.setText("");
+
+                preparedStatement.close();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal memasukkan data ke database", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InputBarang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tambahActionPerformed
+
+    private void perbaruiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perbaruiActionPerformed
+        int selectedRow = tabelMember.getSelectedRow();
+
+        if (selectedRow != -1) {
+            try {
+                String namaToUpdate = tabelMember.getValueAt(selectedRow, 1).toString();
+                String noHpToUpdate = tabelMember.getValueAt(selectedRow, 2).toString();
+                String alamatToUpdate = tabelMember.getValueAt(selectedRow, 3).toString();
+
+                teksNama.setText(namaToUpdate);
+                teksNoHp.setText(noHpToUpdate);
+                teksAlamat.setText(alamatToUpdate);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin diperbarui", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_perbaruiActionPerformed
+
+    private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
+        int selectedRow = tabelMember.getSelectedRow();
+
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    String barangToDelete = tabelMember.getValueAt(selectedRow, 0).toString();
+
+                    Connection koneksi = DatabaseKoneksi.DatabaseConnection.getConnection();
+                    String query = "DELETE FROM member WHERE id = ?";
+                    PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+                    preparedStatement.setString(1, barangToDelete);
+                    int rowsAffected = preparedStatement.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus dari database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                        updateTable();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Gagal menghapus data dari database", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    preparedStatement.close();
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            }else {
+                JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_hapusActionPerformed
+
     private void switchToFrame(String frameName) {
         try {
             this.dispose(); 
@@ -348,6 +514,73 @@ public class Member extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+    
+    private void updateTable() {
+        try {
+            Connection koneksi = DatabaseKoneksi.DatabaseConnection.getConnection();
+            String query = "SELECT * FROM member";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel model = (DefaultTableModel) tabelMember.getModel();
+            model.setRowCount(0); 
+
+            while (resultSet.next()) {
+                Object[] row = {
+                        resultSet.getString("id"),
+                        resultSet.getString("nama"),
+                        resultSet.getString("no_hp"),
+                        resultSet.getString("alamat"),
+                };
+                model.addRow(row);
+            }
+            preparedStatement.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void searchBarangByName() {
+        try {
+            String pencarian = teksCariMember.getText().trim();
+            if (!pencarian.isEmpty()) {
+                String query = "SELECT * FROM member WHERE id LIKE '%" + pencarian + "%' OR nama LIKE '%" + pencarian + "%' OR no_hp LIKE '%" + pencarian + "%'";
+                try (Connection connection = DatabaseKoneksi.DatabaseConnection.getConnection();
+                     Statement statement = (Statement) connection.createStatement();
+                     ResultSet resultSet = statement.executeQuery(query)) {
+
+                    DefaultTableModel model = (DefaultTableModel) tabelMember.getModel();
+                    model.setRowCount(0);
+
+                    while (resultSet.next()) {
+                        // Populate the fields with the selected data
+                        teksNama.setText(resultSet.getString("nama"));
+                        teksNoHp.setText(resultSet.getString("no_hp"));
+                        teksAlamat.setText(resultSet.getString("alamat"));
+                    }
+
+                    // Update the table outside the while loop
+                    updateTable();
+
+                    // If no results, clear the fields
+                    if (!resultSet.next()) {
+                        clearFields();
+                    }
+                }
+            } else {
+                // If the search field is empty, reload all data
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void clearFields() {
+        // Clear the fields
+        teksNama.setText("");
+        teksNoHp.setText("");
+        teksAlamat.setText("");
     }
     
     /**
@@ -396,10 +629,10 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton kembali;
     private javax.swing.JButton perbarui;
     private javax.swing.JButton simpan;
+    private javax.swing.JTable tabelMember;
     private javax.swing.JButton tambah;
     private javax.swing.JTextField teksAlamat;
     private javax.swing.JTextField teksCariMember;
