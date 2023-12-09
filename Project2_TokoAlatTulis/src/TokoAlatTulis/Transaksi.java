@@ -12,6 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -423,7 +429,7 @@ public class Transaksi extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtTotal.setBackground(new java.awt.Color(0, 0, 0));
-        txtTotal.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
+        txtTotal.setFont(new java.awt.Font("Bahnschrift", 0, 32)); // NOI18N
         txtTotal.setForeground(new java.awt.Color(0, 0, 0));
         txtTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtTotal.setText("Rp.0.0");
@@ -441,8 +447,8 @@ public class Transaksi extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -498,14 +504,14 @@ public class Transaksi extends javax.swing.JFrame {
                             .addComponent(jumlahJual, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(batal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                         .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hargaAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)))
                     .addGroup(panel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addGap(25, 25, 25))
@@ -628,6 +634,7 @@ public class Transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_batalActionPerformed
     
     private double totalHarga = 0;
+    double diskon = 0.0;
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         try {
             double hargaSatuanValue = Double.parseDouble(hargaSatuan.getText());
@@ -636,55 +643,134 @@ public class Transaksi extends javax.swing.JFrame {
             double subTotal = hargaSatuanValue * jumlahJualValue;
             totalHarga += subTotal;
 
-            hargaAkhir.setText(String.valueOf(totalHarga));
-
             // Simpan data transaksi ke dalam database
             saveTransactionToDatabase();
 
             // Tampilkan tagihan pada text field atau label yang sesuai
-            txtTotal.setText(String.valueOf(totalHarga));
+            
+            if (member.isSelected()) {
+                // Jika member, berikan diskon 10%
+                diskon = totalHarga * 0.1;
+                totalHarga -= diskon;
+            }
 
+            // Format nilai totalHarga ke dalam format mata uang Indonesia
+            NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+            String formattedTotal = formatter.format(totalHarga);
+
+            // Tampilkan tagihan pada text field atau label yang sesuai
+            if (diskon > 0) {
+                txtTotal.setText(formattedTotal + " (Diskon 10%)");
+            } else {
+                txtTotal.setText(formattedTotal);
+            }
+            updateTotalHargaFromDatabase();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Masukkan angka yang valid.");
         }
     }//GEN-LAST:event_submitActionPerformed
 
     private void saveTransactionToDatabase() {
-         try {
-            java.sql.Connection koneksi = DatabaseConnection.getConnection();
+        try {
+            Connection koneksi = DatabaseConnection.getConnection();
 
-            String query = "INSERT INTO transaksi (kode_barang, nama_barang, stok, harga_satuan, jumlah, total_harga ) VALUES (?, ?, ?, ? ,? ,?)";
-            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
-
-            preparedStatement.setString(1, kodeBarang.getText());
-            preparedStatement.setString(2, namaBarang.getText());
-            preparedStatement.setString(3, stok.getText());
-            preparedStatement.setString(4, hargaSatuan.getText());
-            preparedStatement.setString(5, jumlahJual.getText());
-            preparedStatement.setString(6, hargaAkhir.getText());
-
-            int rowsAffected = preparedStatement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Data berhasil dimasukkan ke database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            // Simpan data transaksi ke dalam database
+            String query = "INSERT INTO transaksi (kode_barang, nama_barang, stok, harga_satuan, jumlah, total_harga) VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = koneksi.prepareStatement(query)) {
                 
-                updateTable();
-                 
-                kodeBarang.setText("");
-                namaBarang.setText("");
-                stok.setText("");
-                hargaSatuan.setText("");
-                jumlahJual.setText("");
-                hargaAkhir.setText("");
+                preparedStatement.setString(1, kodeBarang.getText());
+                preparedStatement.setString(2, namaBarang.getText());
+                preparedStatement.setString(3, stok.getText());
+                preparedStatement.setString(4, hargaSatuan.getText());
+                preparedStatement.setString(5, jumlahJual.getText());
+                preparedStatement.setDouble(6, totalHarga);
 
-                preparedStatement.close();
-            } else {
-                JOptionPane.showMessageDialog(this, "Gagal memasukkan data ke database", "Error", JOptionPane.ERROR_MESSAGE);
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    // Update stok_barang di database barang
+                    int stokSekarang = getStokFromDatabase(kodeBarang.getText());
+                    int jumlahJualValue = Integer.parseInt(jumlahJual.getText());
+                    int newStok = stokSekarang - jumlahJualValue;
+
+                    updateStokInDatabase(kodeBarang.getText(), newStok);
+
+                    JOptionPane.showMessageDialog(this, "Data berhasil dimasukkan ke database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+                    updateTable();
+
+                    kodeBarang.setText("");
+                    namaBarang.setText("");
+                    stok.setText("");
+                    hargaSatuan.setText("");
+                    jumlahJual.setText("");
+                    hargaAkhir.setText("");
+
+                    preparedStatement.close();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Gagal memasukkan data ke database", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke database.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(InputBarang.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private int getStokFromDatabase(String kodeBarang) throws SQLException, ClassNotFoundException {
+        Connection koneksi = DatabaseConnection.getConnection();
+        String query = "SELECT stok_barang FROM barang WHERE kode_barang=?";
+        try (PreparedStatement preparedStatement = koneksi.prepareStatement(query)) {
+            preparedStatement.setString(1, kodeBarang);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                int stok = 0;
+                if (resultSet.next()) {
+                    stok = resultSet.getInt("stok_barang");
+                }
+                return stok;
+            }
+        }
+    }
+    
+    private void updateStokInDatabase(String kodeBarang, int newStok) throws SQLException, ClassNotFoundException {
+        Connection koneksi = DatabaseConnection.getConnection();
+        String query = "UPDATE barang SET stok_barang=? WHERE kode_barang=?";
+        try (PreparedStatement preparedStatement = koneksi.prepareStatement(query)) {
+            preparedStatement.setInt(1, newStok);
+            preparedStatement.setString(2, kodeBarang);
+            preparedStatement.executeUpdate();
+        }
+    }
+    
+    private void updateTotalHargaFromDatabase() {
+        try {
+            Connection koneksi = DatabaseConnection.getConnection();
+            String query = "SELECT SUM(total_harga) AS total FROM transaksi";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                double totalHarga = resultSet.getDouble("total");
+
+                // Format nilai totalHarga ke dalam format mata uang Indonesia
+                NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+                String formattedTotal1 = formatter.format(totalHarga);
+
+                // Tampilkan totalHarga pada text field atau label yang sesuai
+                // Cek apakah member terpilih
+                if (member.isSelected()) {
+                    formattedTotal1 = formatter.format(totalHarga) + " (Diskon 10%: " + formatter.format(diskon) + ")";
+                } else {
+                    formattedTotal1 = formatter.format(totalHarga);
+                }
+            }
+
+            preparedStatement.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
     }
     
@@ -709,6 +795,7 @@ public class Transaksi extends javax.swing.JFrame {
                 };
                 model.addRow(row);
             }
+            updateTotalHargaFromDatabase();
             preparedStatement.close();
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -716,28 +803,92 @@ public class Transaksi extends javax.swing.JFrame {
     }
     
     private void baruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baruActionPerformed
-        // TODO add your handling code here:
+        simpanDataKeDatabase();
+        clearTransaksiTable();
     }//GEN-LAST:event_baruActionPerformed
 
+    private void clearTransaksiTable() {
+        try {
+            Connection koneksi = DatabaseConnection.getConnection();
+            String query = "DELETE FROM transaksi";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Data transaksi berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus data transaksi", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            preparedStatement.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private void hargaAkhirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hargaAkhirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_hargaAkhirActionPerformed
 
     private void bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bayarActionPerformed
-//        try {
-//            double uangValue = Double.parseDouble(uang.getText());
-//
-//            if (uangValue < totalHarga) {
-//                JOptionPane.showMessageDialog(this, "Uang yang dimasukkan kurang.");
-//            } else {
-//                double kembaliValue = uangValue - totalHarga;
-//                kembali.setText(String.valueOf(kembaliValue));
-//            }
-//        } catch (NumberFormatException e) {
-//            JOptionPane.showMessageDialog(this, "Masukkan angka yang valid.");
-//        }
+        try {
+            double uangValue = Double.parseDouble(uang.getText());
+
+            if (uangValue < totalHarga) {
+                JOptionPane.showMessageDialog(this, "Uang yang dimasukkan kurang.");
+            } else {
+                // Hitung kembalian
+                double kembaliValue = uangValue - totalHarga;
+
+                // Simpan data ke dalam tabel laporan_transaksi
+                saveToLaporanTransaksi();
+
+                // Tampilkan kembalian
+                kembali.setText(String.valueOf(kembaliValue));
+
+                JOptionPane.showMessageDialog(this, "Pembayaran berhasil.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+                // Kosongkan input setelah pembayaran
+                batalActionPerformed(evt);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Masukkan angka yang valid.");
+        }
     }//GEN-LAST:event_bayarActionPerformed
 
+    private void saveToLaporanTransaksi() {
+    try {
+        Connection koneksi = DatabaseConnection.getConnection();
+
+        // Ambil data dari tabel transaksi
+        String queryTransaksi = "SELECT * FROM transaksi";
+        PreparedStatement preparedStatementTransaksi = koneksi.prepareStatement(queryTransaksi);
+        ResultSet resultSetTransaksi = preparedStatementTransaksi.executeQuery();
+
+        // Simpan data ke dalam tabel laporan_transaksi
+        String queryLaporanTransaksi = "UPDATE laporan_transaksi SET tanggal = ?, kode_barang = ?, nama_barang = ?, stok = ?, harga_satuan = ?, jumlah = ?, total_harga = ? WHERE no_transaksi = ?";
+        try (PreparedStatement preparedStatementLaporanTransaksi = koneksi.prepareStatement(queryLaporanTransaksi)) {
+            while (resultSetTransaksi.next()) {
+                preparedStatementLaporanTransaksi.setString(1, noTransaksi.getText());
+                preparedStatementLaporanTransaksi.setDate(2, java.sql.Date.valueOf(textTanggal.getText()));
+                preparedStatementLaporanTransaksi.setString(3, resultSetTransaksi.getString("kode_barang"));
+                preparedStatementLaporanTransaksi.setString(4, resultSetTransaksi.getString("nama_barang"));
+                preparedStatementLaporanTransaksi.setString(5, resultSetTransaksi.getString("stok"));
+                preparedStatementLaporanTransaksi.setString(6, resultSetTransaksi.getString("harga_satuan"));
+                preparedStatementLaporanTransaksi.setString(7, resultSetTransaksi.getString("jumlah"));
+                preparedStatementLaporanTransaksi.setString(8, resultSetTransaksi.getString("total_harga"));
+
+                preparedStatementLaporanTransaksi.executeUpdate();
+            }
+        }
+
+        preparedStatementTransaksi.close();
+    } catch (SQLException | ClassNotFoundException ex) {
+        ex.printStackTrace();
+    }
+}
+    
     private void memberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_memberActionPerformed
@@ -830,6 +981,69 @@ public class Transaksi extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+    
+     private void simpanDataKeDatabase() {
+           try {
+            // Menggunakan singleton untuk mendapatkan koneksi
+            Connection koneksi = DatabaseConnection.getConnection();
+
+            // Mengambil ID transaksi terakhir dari database untuk menentukan counter
+            int counter = getLastTransactionId(koneksi) + 1;
+
+            // Format ID transaksi: TahunBulanHariJamMenitDetikCounter
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+            String formattedDate = dateFormat.format(new Date());
+            String transactionId = formattedDate + counter;
+
+            // Mengambil tanggal saat ini
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String formattedDateNow = currentDate.format(formatter);
+
+            // Query SQL untuk menyimpan ID transaksi dan tanggal ke dalam database
+            String sql = "INSERT INTO laporan_transaksi (no_transaksi, tanggal) VALUES (?, ?)";
+
+            try (PreparedStatement statement = koneksi.prepareStatement(sql)) {
+                // Menggantilah '?' dengan nilai sesuai dengan data yang ingin dimasukkan
+                statement.setString(1, transactionId);
+                statement.setDate(2, java.sql.Date.valueOf(formattedDateNow));
+
+                // Eksekusi query
+                statement.executeUpdate();
+
+                // Set ID transaksi pada JTextField
+                noTransaksi.setText(transactionId);
+
+                // Set Tanggal pada JTextField
+                textTanggal.setText(formattedDateNow);
+
+                JOptionPane.showMessageDialog(this, "ID transaksi dan tanggal disimpan ke database.",
+                        "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke database.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private int getLastTransactionId(Connection connection) throws SQLException {
+        // Query SQL untuk mendapatkan ID transaksi terakhir dari database
+        String sql = "SELECT MAX(CAST(SUBSTRING(no_transaksi, 15) AS SIGNED)) AS last_id FROM laporan_transaksi";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt("last_id");
+            } else {
+                return 0;
+            }
         }
     }
     
