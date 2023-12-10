@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +27,7 @@ public class LaporanTransaksi extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         updateTable();
+        updateTotalOnUI();
     }
 
     /**
@@ -54,39 +57,39 @@ public class LaporanTransaksi extends javax.swing.JFrame {
         tabelLaporanTransaksi.setBackground(new java.awt.Color(255, 255, 153));
         tabelLaporanTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No Transaksi", "Tanggal", "Nama Barang", "Harga", "Quantity", "Total Harga"
+                "No Transaksi", "Tanggal", "Kode Barang", "Nama Barang", "Stok", "Harga Satuan", "Jumlah Jual", "Total Harga"
             }
         ));
         jScrollPane1.setViewportView(tabelLaporanTransaksi);
@@ -98,6 +101,12 @@ public class LaporanTransaksi extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
         jLabel2.setText("Total Harga Penjualan  :");
+
+        txtTotalPenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalPenjualanActionPerformed(evt);
+            }
+        });
 
         kembali.setBackground(new java.awt.Color(255, 102, 0));
         kembali.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
@@ -170,6 +179,10 @@ public class LaporanTransaksi extends javax.swing.JFrame {
         switchToFrame(Menu);
     }//GEN-LAST:event_kembaliActionPerformed
 
+    private void txtTotalPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalPenjualanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalPenjualanActionPerformed
+
     private void switchToFrame(String frameName) {
         try {
             this.dispose(); 
@@ -181,6 +194,42 @@ public class LaporanTransaksi extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
+    
+    private double getTotalHargaFromDatabase() {
+        double total = 0;
+        try {
+            Connection koneksi = DatabaseKoneksi.DatabaseConnection.getConnection();
+
+            String query = "SELECT SUM(total_harga) AS total FROM laporan_transaksi";
+            try (PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+                 ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    total = resultSet.getDouble("total");
+                }
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return total;
+    }
+    
+    private void updateTotalOnUI() {
+    try {
+        // Assuming this is your existing method to get the total from the database
+        double total = getTotalHargaFromDatabase();
+
+        
+        // Format nilai total ke dalam format mata uang Indonesia (IDR)
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        String formattedTotal = formatter.format(total);
+
+        // Set nilai yang telah diformat ke dalam JTextField
+        txtTotalPenjualan.setText(formattedTotal);
+    } catch (Exception e) {
+        e.printStackTrace();
+        // Handle any exceptions that might occur while updating the UI
+    }
+}
     
     private void updateTable() {
         try {

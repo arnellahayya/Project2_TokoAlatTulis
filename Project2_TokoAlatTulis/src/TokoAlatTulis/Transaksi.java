@@ -314,64 +314,64 @@ public class Transaksi extends javax.swing.JFrame {
         tabelTransaksi.setBackground(new java.awt.Color(255, 255, 153));
         tabelTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Kode Barang", "Nama Barang", "Stok", "Harga Satuan", "Jumlah", "Total Harga"
+                "No Transaksi", "Tanggal", "Kode Barang", "Nama Barang", "Stok", "Harga Satuan", "Jumlah", "Total Harga"
             }
         ));
         jScrollPane1.setViewportView(tabelTransaksi);
         if (tabelTransaksi.getColumnModel().getColumnCount() > 0) {
-            tabelTransaksi.getColumnModel().getColumn(2).setResizable(false);
+            tabelTransaksi.getColumnModel().getColumn(4).setResizable(false);
         }
 
         baru.setBackground(new java.awt.Color(255, 102, 0));
@@ -416,7 +416,7 @@ public class Transaksi extends javax.swing.JFrame {
         txtTotal.setBackground(new java.awt.Color(0, 0, 0));
         txtTotal.setFont(new java.awt.Font("Bahnschrift", 0, 32)); // NOI18N
         txtTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtTotal.setText("Rp.0.0");
+        txtTotal.setText("Rp0.0");
 
         tagihan.setBackground(new java.awt.Color(0, 0, 0));
         tagihan.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
@@ -476,12 +476,12 @@ public class Transaksi extends javax.swing.JFrame {
                                 .addGap(100, 100, 100)
                                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(stok, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                                    .addComponent(jLabel5))
-                                .addGap(100, 100, 100)
-                                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(hargaSatuan, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                                    .addComponent(jLabel6)))
+                                    .addComponent(jLabel5)))
                             .addComponent(cariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(100, 100, 100)
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(hargaSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addGap(100, 100, 100)
                         .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jumlahJual, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -629,19 +629,19 @@ public class Transaksi extends javax.swing.JFrame {
             // Ambil totalHarga dari database
             totalHarga = getTotalHargaFromDatabase();
 
-            // Hitung totalHarga setelah diskon
-            if (member.isSelected()) {
-                // Jika member, berikan diskon 10%
-                diskon = totalHarga * 0.1;
-                totalHarga -= diskon;
-            }
+//            // Hitung totalHarga setelah diskon
+//            if (member.isSelected()) {
+//                // Jika member, berikan diskon 10%
+//                diskon = totalHarga * 0.1;
+//                totalHarga -= diskon;
+//            }
 
             // Format nilai totalHarga ke dalam format mata uang Indonesia
             NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
             String formattedTotal = formatter.format(totalHarga);
 
             // Tampilkan tagihan pada text field atau label yang sesuai
-            if (diskon > 0) {
+            if (member.isSelected()) {
                 txtTotal.setText(formattedTotal + " (Diskon 10%)");
             } else {
                 txtTotal.setText(formattedTotal);
@@ -671,20 +671,36 @@ public class Transaksi extends javax.swing.JFrame {
         return total;
     }
     
+    private double totalHargaBarang = 0;
+    private double diskonBarang = 0;
     private void saveTransactionToDatabase() {
+        
         try {
-            Connection koneksi = DatabaseConnection.getConnection();
+        Connection koneksi = DatabaseConnection.getConnection();
+            double hargaSatuanValue = Double.parseDouble(hargaSatuan.getText());
+            int jumlahJualNilai = Integer.parseInt(jumlahJual.getText());
+            
+            // Hitung totalHarga setelah diskon sebelum disimpan ke database
+            double totalHargaBarang = hargaSatuanValue * jumlahJualNilai;
+            if (member.isSelected()) {
+                // Jika member, berikan diskon 10%
+                double diskonBarang = totalHargaBarang * 0.1;
+                totalHargaBarang -= diskonBarang;
+            }
 
             // Simpan data transaksi ke dalam database
-            String query = "INSERT INTO transaksi (kode_barang, nama_barang, stok, harga_satuan, jumlah, total_harga) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO transaksi (no_transaksi, tanggal, kode_barang, nama_barang, stok, harga_satuan, jumlah, total_harga) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement preparedStatement = koneksi.prepareStatement(query)) {
-                
-                preparedStatement.setString(1, kodeBarang.getText());
-                preparedStatement.setString(2, namaBarang.getText());
-                preparedStatement.setString(3, stok.getText());
-                preparedStatement.setString(4, hargaSatuan.getText());
-                preparedStatement.setString(5, jumlahJual.getText());
-                preparedStatement.setDouble(6, totalHarga);
+
+                preparedStatement.setString(1, noTransaksi.getText());
+                preparedStatement.setDate(2, java.sql.Date.valueOf(textTanggal.getText()));
+                preparedStatement.setString(3, kodeBarang.getText());
+                preparedStatement.setString(4, namaBarang.getText());
+                preparedStatement.setString(5, stok.getText());
+                preparedStatement.setString(6, hargaSatuan.getText());
+                preparedStatement.setString(7, jumlahJual.getText());
+                preparedStatement.setDouble(8, totalHargaBarang);
+
 
                 int rowsAffected = preparedStatement.executeUpdate();
 
@@ -787,6 +803,8 @@ public class Transaksi extends javax.swing.JFrame {
 
             while (resultSet.next()) {
                 Object[] row = {
+                        resultSet.getString("no_transaksi"),
+                        resultSet.getString("tanggal"),
                         resultSet.getString("kode_barang"),
                         resultSet.getString("nama_barang"),
                         resultSet.getString("stok"),
@@ -806,6 +824,12 @@ public class Transaksi extends javax.swing.JFrame {
     private void baruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baruActionPerformed
         simpanDataKeDatabase();
         clearTransaksiTable();
+        updateTable();
+        buttonGroup1.clearSelection();
+        txtTotal.setText("Rp0.0");
+        nama.setText("");
+        nomorHP.setText("");
+        
     }//GEN-LAST:event_baruActionPerformed
 
     private void clearTransaksiTable() {
@@ -819,7 +843,7 @@ public class Transaksi extends javax.swing.JFrame {
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(this, "Data transaksi berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Gagal menghapus data transaksi", "Error", JOptionPane.ERROR_MESSAGE);
+                
             }
 
             preparedStatement.close();
