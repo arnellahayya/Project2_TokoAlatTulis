@@ -69,8 +69,6 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jumlahJual = new javax.swing.JTextField();
-        hargaAkhir = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         batal = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -276,19 +274,6 @@ public class Transaksi extends javax.swing.JFrame {
             }
         });
 
-        hargaAkhir.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
-        hargaAkhir.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        hargaAkhir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hargaAkhirActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel8.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Harga Akhir");
-
         submit.setBackground(new java.awt.Color(255, 102, 0));
         submit.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
         submit.setForeground(new java.awt.Color(255, 255, 153));
@@ -487,11 +472,8 @@ public class Transaksi extends javax.swing.JFrame {
                             .addComponent(jumlahJual, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(batal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hargaAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -529,17 +511,14 @@ public class Transaksi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel2Layout.createSequentialGroup()
-                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jumlahJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hargaAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(batal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addComponent(jumlahJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(batal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -613,7 +592,7 @@ public class Transaksi extends javax.swing.JFrame {
         stok.setText("");
         hargaSatuan.setText("");
         jumlahJual.setText("");
-        hargaAkhir.setText("");
+        
     }//GEN-LAST:event_batalActionPerformed
     
     private double totalHarga = 0;
@@ -721,7 +700,7 @@ public class Transaksi extends javax.swing.JFrame {
                     stok.setText("");
                     hargaSatuan.setText("");
                     jumlahJual.setText("");
-                    hargaAkhir.setText("");
+                    
 
                     preparedStatement.close();
                 } else {
@@ -829,6 +808,8 @@ public class Transaksi extends javax.swing.JFrame {
         txtTotal.setText("Rp0.0");
         nama.setText("");
         nomorHP.setText("");
+        uang.setText("");
+        kembali.setText("");
         
     }//GEN-LAST:event_baruActionPerformed
 
@@ -852,10 +833,6 @@ public class Transaksi extends javax.swing.JFrame {
         }
     }
     
-    private void hargaAkhirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hargaAkhirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hargaAkhirActionPerformed
-
     private void bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bayarActionPerformed
         try {
             double uangValue = Double.parseDouble(uang.getText());
@@ -1113,7 +1090,6 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JButton bayar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cariBarang;
-    private javax.swing.JTextField hargaAkhir;
     private javax.swing.JTextField hargaSatuan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1125,7 +1101,6 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
