@@ -31,12 +31,6 @@ public class InputBarang extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         updateTable(); 
         
-        teksCariBarang.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            searchBarangByName(); }
-        });
-        
-        
     }
 
     /**
@@ -67,6 +61,7 @@ public class InputBarang extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelBarang = new javax.swing.JTable();
         kembali = new javax.swing.JButton();
+        cari = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1366, 768));
@@ -300,27 +295,38 @@ public class InputBarang extends javax.swing.JFrame {
             }
         });
 
+        cari.setBackground(new java.awt.Color(255, 102, 0));
+        cari.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
+        cari.setForeground(new java.awt.Color(255, 255, 153));
+        cari.setText("Cari");
+        cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(532, 532, 532)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(teksCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(102, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(102, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(532, 532, 532)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(teksCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,9 +338,10 @@ public class InputBarang extends javax.swing.JFrame {
                         .addGap(47, 47, 47))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(teksCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(teksCariBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cari))
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -409,9 +416,7 @@ public class InputBarang extends javax.swing.JFrame {
 
                     updateTable();
 
-                    teksNamaBarang.setText("");
-                    teksStokBarang.setText("");
-                    teksHargaBarang.setText("");
+                    clearFields();
                 } else {
                     JOptionPane.showMessageDialog(this, "Gagal memperbarui data di database", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -512,6 +517,35 @@ public class InputBarang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_perbaruiActionPerformed
 
+    private void cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariActionPerformed
+        try {
+            Connection koneksi = DatabaseConnection.getConnection();
+
+            String query = "SELECT * FROM barang WHERE kode_barang=?";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+
+            preparedStatement.setString(1, teksCariBarang.getText());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                teksNamaBarang.setText(resultSet.getString("nama_barang"));
+                teksStokBarang.setText(resultSet.getString("stok_barang"));
+                teksHargaBarang.setText(resultSet.getString("harga_barang"));
+
+                JOptionPane.showMessageDialog(this, "Data ditemukan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data tidak ditemukan", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            }
+
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InputBarang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cariActionPerformed
+
     private void switchToFrame(String frameName) {
         try {
             this.dispose(); 
@@ -550,46 +584,12 @@ public class InputBarang extends javax.swing.JFrame {
         }
     }
     
-     private void searchBarangByName() {
-        try {
-            String kodeBarang = teksCariBarang.getText().trim();
-            if (!kodeBarang.isEmpty()) {
-                String query = "SELECT * FROM barang WHERE kode_barang LIKE ?";
-                try (Connection connection = DatabaseKoneksi.DatabaseConnection.getConnection();
-                     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-                    preparedStatement.setString(1, "%" + kodeBarang + "%");
-
-                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                        DefaultTableModel model = (DefaultTableModel) tabelBarang.getModel();
-                        model.setRowCount(0);
-
-                        if (resultSet.next()) {
-                            // Select the first result
-                            updateTable();
-                            // Populate the fields with the selected data
-                            teksNamaBarang.setText(resultSet.getString("nama_barang"));
-                            teksStokBarang.setText(resultSet.getString("stok_barang"));
-                            teksHargaBarang.setText(resultSet.getString("harga_barang"));
-                        } else {
-                            // If no results, clear the fields
-                            clearFields();
-                        }
-                    }
-                }
-            } else {
-                // If the search field is empty, reload all data
-            }
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private void clearFields() {
         // Clear the fields
         teksNamaBarang.setText("");
         teksStokBarang.setText("");
         teksHargaBarang.setText("");
+        teksCariBarang.setText("");
     }
     /**
      * @param args the command line arguments
@@ -627,6 +627,7 @@ public class InputBarang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cari;
     private javax.swing.JButton hapus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
