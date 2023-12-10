@@ -4,6 +4,14 @@
  */
 package TokoAlatTulis;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Arnella
@@ -16,6 +24,7 @@ public class LaporanTransaksi extends javax.swing.JFrame {
     public LaporanTransaksi() {
         initComponents();
         setLocationRelativeTo(this);
+        updateTable();
     }
 
     /**
@@ -170,6 +179,37 @@ public class LaporanTransaksi extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+    
+    private void updateTable() {
+        try {
+            Connection koneksi = DatabaseKoneksi.DatabaseConnection.getConnection();
+            String query = "SELECT * FROM laporan_transaksi";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel model = (DefaultTableModel) tabelLaporanTransaksi.getModel();
+            model.setRowCount(0); 
+
+            while (resultSet.next()) {
+                Object[] row = {
+                        resultSet.getString("no_transaksi"),
+                        resultSet.getString("tanggal"),
+                        resultSet.getString("kode_barang"),
+                        resultSet.getString("nama_barang"),
+                        resultSet.getString("stok"),
+                        resultSet.getString("harga_satuan"),
+                        resultSet.getString("jumlah"),
+                        resultSet.getString("total_harga"),
+                };
+                model.addRow(row);
+            }
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InputBarang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
