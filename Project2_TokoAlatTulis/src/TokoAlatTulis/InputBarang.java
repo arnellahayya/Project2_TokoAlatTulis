@@ -545,8 +545,10 @@ public class InputBarang extends javax.swing.JFrame {
                 model.addRow(row);
             }
             preparedStatement.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InputBarang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -580,8 +582,11 @@ public class InputBarang extends javax.swing.JFrame {
             } else {
                 // If the search field is empty, reload all data
             }
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke database.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
