@@ -29,11 +29,6 @@ public class Member extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         updateTable();
-        
-        teksCariMember.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            searchBarangByName(); }
-        });
          
     }
 
@@ -65,6 +60,7 @@ public class Member extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelMember = new javax.swing.JTable();
         kembali = new javax.swing.JButton();
+        cari = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,7 +100,6 @@ public class Member extends javax.swing.JFrame {
         });
 
         teksNama.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksNama.setForeground(new java.awt.Color(0, 0, 0));
         teksNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teksNamaActionPerformed(evt);
@@ -142,7 +137,6 @@ public class Member extends javax.swing.JFrame {
         });
 
         teksNoHp.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksNoHp.setForeground(new java.awt.Color(0, 0, 0));
         teksNoHp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teksNoHpActionPerformed(evt);
@@ -150,7 +144,6 @@ public class Member extends javax.swing.JFrame {
         });
 
         teksAlamat.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksAlamat.setForeground(new java.awt.Color(0, 0, 0));
         teksAlamat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teksAlamatActionPerformed(evt);
@@ -226,7 +219,6 @@ public class Member extends javax.swing.JFrame {
         jLabel7.setText("Cari member :");
 
         teksCariMember.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        teksCariMember.setForeground(new java.awt.Color(0, 0, 0));
         teksCariMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teksCariMemberActionPerformed(evt);
@@ -293,22 +285,25 @@ public class Member extends javax.swing.JFrame {
             }
         });
 
+        cari.setBackground(new java.awt.Color(255, 102, 0));
+        cari.setFont(new java.awt.Font("Bahnschrift", 0, 15)); // NOI18N
+        cari.setForeground(new java.awt.Color(255, 255, 153));
+        cari.setText("Cari");
+        cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(teksCariMember, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(88, 88, 88)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +313,15 @@ public class Member extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(569, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(teksCariMember, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cari)
+                .addGap(72, 72, 72))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,10 +329,11 @@ public class Member extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabel2)
                 .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(teksCariMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(teksCariMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cari))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -401,9 +405,8 @@ public class Member extends javax.swing.JFrame {
 
                     updateTable();
 
-                    teksNoHp.setText("");
-                    teksAlamat.setText("");
-                    teksNama.setText("");
+                    clearFields();
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Gagal memperbarui data di database", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -504,6 +507,35 @@ public class Member extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_hapusActionPerformed
 
+    private void cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariActionPerformed
+        try {
+            Connection koneksi = DatabaseKoneksi.DatabaseConnection.getConnection();
+
+            String query = "SELECT * FROM member WHERE id=?";
+            PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+
+            preparedStatement.setString(1, teksCariMember.getText());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                teksNama.setText(resultSet.getString("nama"));
+                teksNoHp.setText(resultSet.getString("no_hp"));
+                teksAlamat.setText(resultSet.getString("alamat"));
+
+                JOptionPane.showMessageDialog(this, "Data ditemukan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data tidak ditemukan", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            }
+
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InputBarang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cariActionPerformed
+
     private void switchToFrame(String frameName) {
         try {
             this.dispose(); 
@@ -541,46 +573,12 @@ public class Member extends javax.swing.JFrame {
         }
     }
     
-    private void searchBarangByName() {
-        try {
-            String pencarian = teksCariMember.getText().trim();
-            if (!pencarian.isEmpty()) {
-                String query = "SELECT * FROM member WHERE id LIKE '%" + pencarian + "%' OR nama LIKE '%" + pencarian + "%' OR no_hp LIKE '%" + pencarian + "%'";
-                try (Connection connection = DatabaseKoneksi.DatabaseConnection.getConnection();
-                     Statement statement = (Statement) connection.createStatement();
-                     ResultSet resultSet = statement.executeQuery(query)) {
-
-                    DefaultTableModel model = (DefaultTableModel) tabelMember.getModel();
-                    model.setRowCount(0);
-
-                    while (resultSet.next()) {
-                        // Populate the fields with the selected data
-                        teksNama.setText(resultSet.getString("nama"));
-                        teksNoHp.setText(resultSet.getString("no_hp"));
-                        teksAlamat.setText(resultSet.getString("alamat"));
-                    }
-
-                    // Update the table outside the while loop
-                    updateTable();
-
-                    // If no results, clear the fields
-                    if (!resultSet.next()) {
-                        clearFields();
-                    }
-                }
-            } else {
-                // If the search field is empty, reload all data
-            }
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private void clearFields() {
         // Clear the fields
         teksNama.setText("");
         teksNoHp.setText("");
         teksAlamat.setText("");
+        teksCariMember.setText("");
     }
     
     /**
@@ -619,6 +617,7 @@ public class Member extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cari;
     private javax.swing.JButton hapus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

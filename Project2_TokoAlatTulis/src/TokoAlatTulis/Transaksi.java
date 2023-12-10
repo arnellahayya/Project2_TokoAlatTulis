@@ -95,13 +95,11 @@ public class Transaksi extends javax.swing.JFrame {
 
         panel2.setBackground(new java.awt.Color(255, 204, 102));
         panel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panel2.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 153));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("No. Transaksi");
 
@@ -109,7 +107,6 @@ public class Transaksi extends javax.swing.JFrame {
         noTransaksi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nama");
 
@@ -117,7 +114,6 @@ public class Transaksi extends javax.swing.JFrame {
         nomorHP.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         jLabel9.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Tanggal");
 
@@ -125,7 +121,6 @@ public class Transaksi extends javax.swing.JFrame {
         textTanggal.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         jLabel10.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Nomor HP");
 
@@ -145,7 +140,6 @@ public class Transaksi extends javax.swing.JFrame {
 
         buttonGroup1.add(member);
         member.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
-        member.setForeground(new java.awt.Color(0, 0, 0));
         member.setText("Member");
         member.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +149,6 @@ public class Transaksi extends javax.swing.JFrame {
 
         buttonGroup1.add(nonMember);
         nonMember.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
-        nonMember.setForeground(new java.awt.Color(0, 0, 0));
         nonMember.setText("Non-Member");
         nonMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,7 +222,6 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Kode Barang");
 
@@ -249,7 +241,6 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Nama Barang");
 
@@ -258,7 +249,6 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Stok");
 
@@ -270,13 +260,11 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
         jLabel6.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Harga Satuan");
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Jumlah Jual");
 
@@ -298,7 +286,6 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Harga Akhir");
 
@@ -412,13 +399,11 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Kembali :");
 
         jLabel12.setBackground(new java.awt.Color(0, 0, 0));
         jLabel12.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Uang      :");
 
@@ -430,13 +415,11 @@ public class Transaksi extends javax.swing.JFrame {
 
         txtTotal.setBackground(new java.awt.Color(0, 0, 0));
         txtTotal.setFont(new java.awt.Font("Bahnschrift", 0, 32)); // NOI18N
-        txtTotal.setForeground(new java.awt.Color(0, 0, 0));
         txtTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtTotal.setText("Rp.0.0");
 
         tagihan.setBackground(new java.awt.Color(0, 0, 0));
         tagihan.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
-        tagihan.setForeground(new java.awt.Color(0, 0, 0));
         tagihan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tagihan.setText("Tagihan : ");
 
