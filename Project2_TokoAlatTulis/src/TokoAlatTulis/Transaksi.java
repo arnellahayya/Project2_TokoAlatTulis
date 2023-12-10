@@ -640,14 +640,13 @@ public class Transaksi extends javax.swing.JFrame {
             double hargaSatuanValue = Double.parseDouble(hargaSatuan.getText());
             int jumlahJualValue = Integer.parseInt(jumlahJual.getText());
 
-            double subTotal = hargaSatuanValue * jumlahJualValue;
-            totalHarga += subTotal;
-
             // Simpan data transaksi ke dalam database
             saveTransactionToDatabase();
 
-            // Tampilkan tagihan pada text field atau label yang sesuai
-            
+            // Ambil totalHarga dari database
+            totalHarga = getTotalHargaFromDatabase();
+
+            // Hitung totalHarga setelah diskon
             if (member.isSelected()) {
                 // Jika member, berikan diskon 10%
                 diskon = totalHarga * 0.1;
@@ -665,11 +664,30 @@ public class Transaksi extends javax.swing.JFrame {
                 txtTotal.setText(formattedTotal);
             }
             updateTotalHargaFromDatabase();
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Masukkan angka yang valid.");
         }
     }//GEN-LAST:event_submitActionPerformed
 
+    private double getTotalHargaFromDatabase() {
+        double total = 0;
+        try {
+            Connection koneksi = DatabaseConnection.getConnection();
+
+            String query = "SELECT SUM(total_harga) AS total FROM transaksi";
+            try (PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+                 ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    total = resultSet.getDouble("total");
+                }
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return total;
+    }
+    
     private void saveTransactionToDatabase() {
         try {
             Connection koneksi = DatabaseConnection.getConnection();
@@ -863,27 +881,26 @@ public class Transaksi extends javax.swing.JFrame {
 
         // Ambil data dari tabel transaksi
         String queryTransaksi = "SELECT * FROM transaksi";
-        PreparedStatement preparedStatementTransaksi = koneksi.prepareStatement(queryTransaksi);
-        ResultSet resultSetTransaksi = preparedStatementTransaksi.executeQuery();
+        try (PreparedStatement preparedStatementTransaksi = koneksi.prepareStatement(queryTransaksi);
+             ResultSet resultSetTransaksi = preparedStatementTransaksi.executeQuery()) {
 
-        // Simpan data ke dalam tabel laporan_transaksi
-        String queryLaporanTransaksi = "UPDATE laporan_transaksi SET tanggal = ?, kode_barang = ?, nama_barang = ?, stok = ?, harga_satuan = ?, jumlah = ?, total_harga = ? WHERE no_transaksi = ?";
-        try (PreparedStatement preparedStatementLaporanTransaksi = koneksi.prepareStatement(queryLaporanTransaksi)) {
-            while (resultSetTransaksi.next()) {
-                preparedStatementLaporanTransaksi.setString(1, noTransaksi.getText());
-                preparedStatementLaporanTransaksi.setDate(2, java.sql.Date.valueOf(textTanggal.getText()));
-                preparedStatementLaporanTransaksi.setString(3, resultSetTransaksi.getString("kode_barang"));
-                preparedStatementLaporanTransaksi.setString(4, resultSetTransaksi.getString("nama_barang"));
-                preparedStatementLaporanTransaksi.setString(5, resultSetTransaksi.getString("stok"));
-                preparedStatementLaporanTransaksi.setString(6, resultSetTransaksi.getString("harga_satuan"));
-                preparedStatementLaporanTransaksi.setString(7, resultSetTransaksi.getString("jumlah"));
-                preparedStatementLaporanTransaksi.setString(8, resultSetTransaksi.getString("total_harga"));
+            // Simpan data ke dalam tabel laporan_transaksi
+            String queryLaporanTransaksi = "INSERT INTO laporan_transaksi (no_transaksi, tanggal, kode_barang, nama_barang, stok, harga_satuan, jumlah, total_harga) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement preparedStatementLaporanTransaksi = koneksi.prepareStatement(queryLaporanTransaksi)) {
+                while (resultSetTransaksi.next()) {
+                    preparedStatementLaporanTransaksi.setString(1, noTransaksi.getText());
+                    preparedStatementLaporanTransaksi.setDate(2, java.sql.Date.valueOf(textTanggal.getText()));
+                    preparedStatementLaporanTransaksi.setString(3, resultSetTransaksi.getString("kode_barang"));
+                    preparedStatementLaporanTransaksi.setString(4, resultSetTransaksi.getString("nama_barang"));
+                    preparedStatementLaporanTransaksi.setString(5, resultSetTransaksi.getString("stok"));
+                    preparedStatementLaporanTransaksi.setString(6, resultSetTransaksi.getString("harga_satuan"));
+                    preparedStatementLaporanTransaksi.setString(7, resultSetTransaksi.getString("jumlah"));
+                    preparedStatementLaporanTransaksi.setString(8, resultSetTransaksi.getString("total_harga"));
 
-                preparedStatementLaporanTransaksi.executeUpdate();
+                    preparedStatementLaporanTransaksi.executeUpdate();
+                }
             }
         }
-
-        preparedStatementTransaksi.close();
     } catch (SQLException | ClassNotFoundException ex) {
         ex.printStackTrace();
     }
@@ -1011,7 +1028,7 @@ public class Transaksi extends javax.swing.JFrame {
                 statement.setDate(2, java.sql.Date.valueOf(formattedDateNow));
 
                 // Eksekusi query
-                statement.executeUpdate();
+                
 
                 // Set ID transaksi pada JTextField
                 noTransaksi.setText(transactionId);
@@ -1019,7 +1036,7 @@ public class Transaksi extends javax.swing.JFrame {
                 // Set Tanggal pada JTextField
                 textTanggal.setText(formattedDateNow);
 
-                JOptionPane.showMessageDialog(this, "ID transaksi dan tanggal disimpan ke database.",
+                JOptionPane.showMessageDialog(this, "Sukses ",
                         "Sukses", JOptionPane.INFORMATION_MESSAGE);
             }
 
