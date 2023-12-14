@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Arnella
+ * @author Musariul
  */
 public class Transaksi extends javax.swing.JFrame {
 
@@ -82,6 +82,7 @@ public class Transaksi extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         txtTotal = new javax.swing.JLabel();
         tagihan = new javax.swing.JLabel();
+        hapus = new javax.swing.JButton();
         kembali1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -101,6 +102,7 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("No. Transaksi");
 
+        noTransaksi.setEditable(false);
         noTransaksi.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         noTransaksi.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
@@ -115,6 +117,7 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Tanggal");
 
+        textTanggal.setEditable(false);
         textTanggal.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         textTanggal.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
@@ -122,6 +125,7 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Nomor HP");
 
+        nama.setEditable(false);
         nama.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         nama.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
@@ -242,6 +246,7 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Nama Barang");
 
+        namaBarang.setEditable(false);
         namaBarang.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         namaBarang.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -250,9 +255,11 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Stok");
 
+        stok.setEditable(false);
         stok.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         stok.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        hargaSatuan.setEditable(false);
         hargaSatuan.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         hargaSatuan.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -353,11 +360,16 @@ public class Transaksi extends javax.swing.JFrame {
             new String [] {
                 "No Transaksi", "Tanggal", "Kode Barang", "Nama Barang", "Stok", "Harga Satuan", "Jumlah", "Total Harga"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabelTransaksi);
-        if (tabelTransaksi.getColumnModel().getColumnCount() > 0) {
-            tabelTransaksi.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         baru.setBackground(new java.awt.Color(255, 102, 0));
         baru.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
@@ -429,6 +441,17 @@ public class Transaksi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        hapus.setBackground(new java.awt.Color(255, 102, 0));
+        hapus.setFont(new java.awt.Font("Bahnschrift", 0, 20)); // NOI18N
+        hapus.setForeground(new java.awt.Color(255, 255, 153));
+        hapus.setText("Hapus");
+        hapus.setAlignmentY(0.0F);
+        hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
@@ -438,6 +461,8 @@ public class Transaksi extends javax.swing.JFrame {
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel2Layout.createSequentialGroup()
                         .addComponent(baru, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
@@ -522,22 +547,22 @@ public class Transaksi extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(baru, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panel2Layout.createSequentialGroup()
-                            .addGap(8, 8, 8)
-                            .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(uang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panel2Layout.createSequentialGroup()
-                                    .addGap(13, 13, 13)
-                                    .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panel2Layout.createSequentialGroup()
-                                    .addGap(8, 8, 8)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(baru, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bayar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(uang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -599,27 +624,14 @@ public class Transaksi extends javax.swing.JFrame {
     double diskon = 0.0;
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         try {
-            double hargaSatuanValue = Double.parseDouble(hargaSatuan.getText());
-            int jumlahJualValue = Integer.parseInt(jumlahJual.getText());
 
-            // Simpan data transaksi ke dalam database
             saveTransactionToDatabase();
 
-            // Ambil totalHarga dari database
             totalHarga = getTotalHargaFromDatabase();
 
-//            // Hitung totalHarga setelah diskon
-//            if (member.isSelected()) {
-//                // Jika member, berikan diskon 10%
-//                diskon = totalHarga * 0.1;
-//                totalHarga -= diskon;
-//            }
-
-            // Format nilai totalHarga ke dalam format mata uang Indonesia
             NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
             String formattedTotal = formatter.format(totalHarga);
 
-            // Tampilkan tagihan pada text field atau label yang sesuai
             if (member.isSelected()) {
                 txtTotal.setText(formattedTotal + " (Diskon 10%)");
             } else {
@@ -659,15 +671,12 @@ public class Transaksi extends javax.swing.JFrame {
             double hargaSatuanValue = Double.parseDouble(hargaSatuan.getText());
             int jumlahJualNilai = Integer.parseInt(jumlahJual.getText());
             
-            // Hitung totalHarga setelah diskon sebelum disimpan ke database
             double totalHargaBarang = hargaSatuanValue * jumlahJualNilai;
             if (member.isSelected()) {
-                // Jika member, berikan diskon 10%
                 double diskonBarang = totalHargaBarang * 0.1;
                 totalHargaBarang -= diskonBarang;
             }
 
-            // Simpan data transaksi ke dalam database
             String query = "INSERT INTO transaksi (no_transaksi, tanggal, kode_barang, nama_barang, stok, harga_satuan, jumlah, total_harga) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement preparedStatement = koneksi.prepareStatement(query)) {
 
@@ -684,7 +693,6 @@ public class Transaksi extends javax.swing.JFrame {
                 int rowsAffected = preparedStatement.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    // Update stok_barang di database barang
                     int stokSekarang = getStokFromDatabase(kodeBarang.getText());
                     int jumlahJualValue = Integer.parseInt(jumlahJual.getText());
                     int newStok = stokSekarang - jumlahJualValue;
@@ -741,6 +749,7 @@ public class Transaksi extends javax.swing.JFrame {
         }
     }
     
+    private double totalHargaa = 0;
     private void updateTotalHargaFromDatabase() {
         try {
             Connection koneksi = DatabaseConnection.getConnection();
@@ -748,20 +757,19 @@ public class Transaksi extends javax.swing.JFrame {
             PreparedStatement preparedStatement = koneksi.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            totalHargaa = getTotalHargaFromDatabase();
+            
             if (resultSet.next()) {
-                double totalHarga = resultSet.getDouble("total");
+                double totalHargaa = resultSet.getDouble("total");
 
-                // Format nilai totalHarga ke dalam format mata uang Indonesia
                 NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-                String formattedTotal1 = formatter.format(totalHarga);
+                String formattedTotall = formatter.format(totalHargaa);
 
-                // Tampilkan totalHarga pada text field atau label yang sesuai
-                // Cek apakah member terpilih
                 if (member.isSelected()) {
-                    formattedTotal1 = formatter.format(totalHarga) + " (Diskon 10%: " + formatter.format(diskon) + ")";
-                } else {
-                    formattedTotal1 = formatter.format(totalHarga);
-                }
+                txtTotal.setText(formattedTotall + " (Diskon 10%)");
+            } else {
+                txtTotal.setText(formattedTotall);
+            }
             }
 
             preparedStatement.close();
@@ -822,7 +830,7 @@ public class Transaksi extends javax.swing.JFrame {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Data transaksi berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                
             } else {
                 
             }
@@ -840,18 +848,14 @@ public class Transaksi extends javax.swing.JFrame {
             if (uangValue < totalHarga) {
                 JOptionPane.showMessageDialog(this, "Uang yang dimasukkan kurang.");
             } else {
-                // Hitung kembalian
                 double kembaliValue = uangValue - totalHarga;
 
-                // Simpan data ke dalam tabel laporan_transaksi
                 saveToLaporanTransaksi();
 
-                // Tampilkan kembalian
                 kembali.setText(String.valueOf(kembaliValue));
 
                 JOptionPane.showMessageDialog(this, "Pembayaran berhasil.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
-                // Kosongkan input setelah pembayaran
                 batalActionPerformed(evt);
             }
         } catch (NumberFormatException e) {
@@ -863,12 +867,10 @@ public class Transaksi extends javax.swing.JFrame {
     try {
         Connection koneksi = DatabaseConnection.getConnection();
 
-        // Ambil data dari tabel transaksi
         String queryTransaksi = "SELECT * FROM transaksi";
         try (PreparedStatement preparedStatementTransaksi = koneksi.prepareStatement(queryTransaksi);
              ResultSet resultSetTransaksi = preparedStatementTransaksi.executeQuery()) {
 
-            // Simpan data ke dalam tabel laporan_transaksi
             String queryLaporanTransaksi = "INSERT INTO laporan_transaksi (no_transaksi, tanggal, kode_barang, nama_barang, stok, harga_satuan, jumlah, total_harga) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement preparedStatementLaporanTransaksi = koneksi.prepareStatement(queryLaporanTransaksi)) {
                 while (resultSetTransaksi.next()) {
@@ -940,6 +942,40 @@ public class Transaksi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cariBarangActionPerformed
 
+    private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
+        int selectedRow = tabelTransaksi.getSelectedRow();
+
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    String barangToDelete = tabelTransaksi.getValueAt(selectedRow, 0).toString();
+
+                    Connection koneksi = DatabaseConnection.getConnection();
+                    String query = "DELETE FROM transaksi WHERE no_transaksi = ?";
+                    PreparedStatement preparedStatement = koneksi.prepareStatement(query);
+                    preparedStatement.setString(1, barangToDelete);
+                    int rowsAffected = preparedStatement.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus dari database", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                        updateTable();
+                        updateTotalHargaFromDatabase();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Gagal menghapus data dari database", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    preparedStatement.close();
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            }else {
+                JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_hapusActionPerformed
+
     private void cariMemberByNomorHP() {
        try {
             Connection koneksi = DatabaseConnection.getConnection();
@@ -947,20 +983,15 @@ public class Transaksi extends javax.swing.JFrame {
             String sql = "SELECT nama FROM member WHERE no_hp = ?";
 
             try (PreparedStatement statement = koneksi.prepareStatement(sql)) {
-                // Menggantilah '?' dengan nilai sesuai dengan data yang ingin dicari
                 statement.setString(1, nomorHP.getText());
 
-                // Eksekusi query
                 ResultSet resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
-                    // Jika data ditemukan, tampilkan hasilnya di textfield atau komponen GUI yang sesuai
                     String namaMember = resultSet.getString("nama");
                     nama.setText(namaMember);
                     member.setSelected(true);
-                    // Tambahan: Anda mungkin ingin menampilkan informasi lainnya jika diperlukan
                 } else {
-                    // Jika data tidak ditemukan, kosongkan textfield atau komponen GUI yang sesuai
                     nama.setText("");
                     JOptionPane.showMessageDialog(this, "Member tidak ditemukan.");
                 }
@@ -987,37 +1018,26 @@ public class Transaksi extends javax.swing.JFrame {
     
      private void simpanDataKeDatabase() {
            try {
-            // Menggunakan singleton untuk mendapatkan koneksi
             Connection koneksi = DatabaseConnection.getConnection();
 
-            // Mengambil ID transaksi terakhir dari database untuk menentukan counter
             int counter = getLastTransactionId(koneksi) + 1;
 
-            // Format ID transaksi: TahunBulanHariJamMenitDetikCounter
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
             String formattedDate = dateFormat.format(new Date());
             String transactionId = formattedDate + counter;
 
-            // Mengambil tanggal saat ini
             LocalDate currentDate = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formattedDateNow = currentDate.format(formatter);
 
-            // Query SQL untuk menyimpan ID transaksi dan tanggal ke dalam database
             String sql = "INSERT INTO laporan_transaksi (no_transaksi, tanggal) VALUES (?, ?)";
 
             try (PreparedStatement statement = koneksi.prepareStatement(sql)) {
-                // Menggantilah '?' dengan nilai sesuai dengan data yang ingin dimasukkan
                 statement.setString(1, transactionId);
                 statement.setDate(2, java.sql.Date.valueOf(formattedDateNow));
 
-                // Eksekusi query
-                
-
-                // Set ID transaksi pada JTextField
                 noTransaksi.setText(transactionId);
 
-                // Set Tanggal pada JTextField
                 textTanggal.setText(formattedDateNow);
 
                 JOptionPane.showMessageDialog(this, "Sukses ",
@@ -1035,7 +1055,6 @@ public class Transaksi extends javax.swing.JFrame {
     }
 
     private int getLastTransactionId(Connection connection) throws SQLException {
-        // Query SQL untuk mendapatkan ID transaksi terakhir dari database
         String sql = "SELECT MAX(CAST(SUBSTRING(no_transaksi, 15) AS SIGNED)) AS last_id FROM laporan_transaksi";
 
         try (PreparedStatement statement = connection.prepareStatement(sql);
@@ -1090,6 +1109,7 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JButton bayar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cariBarang;
+    private javax.swing.JButton hapus;
     private javax.swing.JTextField hargaSatuan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

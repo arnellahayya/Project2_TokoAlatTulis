@@ -215,19 +215,14 @@ public class LaporanTransaksi extends javax.swing.JFrame {
     
     private void updateTotalOnUI() {
     try {
-        // Assuming this is your existing method to get the total from the database
         double total = getTotalHargaFromDatabase();
 
-        
-        // Format nilai total ke dalam format mata uang Indonesia (IDR)
         NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
         String formattedTotal = formatter.format(total);
 
-        // Set nilai yang telah diformat ke dalam JTextField
         txtTotalPenjualan.setText(formattedTotal);
     } catch (Exception e) {
         e.printStackTrace();
-        // Handle any exceptions that might occur while updating the UI
     }
 }
     

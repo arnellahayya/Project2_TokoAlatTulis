@@ -383,14 +383,11 @@ public class Member extends javax.swing.JFrame {
 
     private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
         try {
-            // Menampilkan dialog konfirmasi
             int result = JOptionPane.showConfirmDialog(this, "Anda yakin ingin menyimpan perubahan?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
 
-            // Jika pengguna menekan tombol 'Yes' (YES_OPTION)
             if (result == JOptionPane.YES_OPTION) {
                 Connection koneksi = DatabaseKoneksi.DatabaseConnection.getConnection();
 
-                // Mengasumsikan bahwa nama_barang adalah kolom string, sesuaikan query-nya
                 String query = "UPDATE member SET no_hp=?, alamat=? WHERE nama=?";
                 PreparedStatement preparedStatement = koneksi.prepareStatement(query);
 
